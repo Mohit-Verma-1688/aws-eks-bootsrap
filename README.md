@@ -3,7 +3,6 @@ This repo guides you to bootstrap the EKS cluster with EBS, EFS and Nginx ingres
 
 ## 1. Prepare the enviornment to bootstrap the EKS cluster using Terraform and Terragrunt.
 
-> Note: If you like to install EKS using another procedure, please proceed with that. Final goal is to have running EKS cluster with EFS, EBS, Ingress controller.
 
 - Prepare the AWS account and login to the console, create a user, policy and a role, then attach that role to policy to assing to user. Make sure to provide that user admin rights. This part needs some prior AWS IAM knowledge.
   * Refernece AWS docs -
