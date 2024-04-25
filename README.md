@@ -39,9 +39,35 @@ role_arn = "arn:aws:iam::8XXXXXXXXXX:role/terraform"   --> update here
 
 
 - Git clone the directory and follow `eks-IaaC` folder . Please see the directory structure uploaded in the repo. 
-- The  `infra-eks` directory contains the high level parameters for bootstrap like ansible localhost.yaml. Directory `infra-eks-modules` contains the actual aws code for the deployment.
-- The default parameters can be changed for each module by modifying terragrunt.hcl file in infra-eks/`component`. For example 
-  in `infra-eks/eks/terragrunt.hcl` file change the eks_version from 1.26 to 1.27. 
+- The  `infra-eks` directory contains the high level parameters for the cluster. Directory `infra-eks-modules` contains the actual aws code for the deployment.
+- It is also possible to run `terragurnt apply` command in individual folder in order to not deploy all components. Simply go to the folder infra-eks and run the command. 
+- The dev.hcl files gives options to enable or disable the components, also allows to change the default chart version and the env name .
+- The default parameters can be changed for each module by modifying terragrunt.hcl file in infra-eks/<component>. For example 
+  in `infra-eks/eks/terragrunt.hcl` file change the eks_version from 1.26 to 1.27. These parameters can also be parameterised in the dev.hcl file. 
+
+
+
+```
+infra-eks/git-repo/aws-eks-bootsrap/eks-IaaC/infra-eks   main ❯ cat env.hcl
+locals {
+
+# Enviornment prefix
+    env = "dev"
+
+#  Make false for the component not to deploy during bootstraping.
+    enable_ebs_csi = "true"
+    ingress-controller = "true"
+    enable_efs = "true"
+    enable_efs_csi = "true"
+
+# Helm versions used for the infra components.name
+    aws-ebs-csi_version = "v1.18.0-eksbuild.1"
+    ingress-controller_helm_verion = "4.0.1"
+    aws-efs-csi_version = "2.5.6"
+
+}
+
+```
 
 ```
 
